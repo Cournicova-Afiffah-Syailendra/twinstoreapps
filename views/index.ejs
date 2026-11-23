@@ -1,0 +1,59 @@
+<%- include('partials/header', { title: null }) %>
+<section class="hero"><span class="blob b1"></span><span class="blob b2"></span>
+  <div class="wrap hero-in">
+    <div class="hero-copy">
+      <h1><%= S.hero_line1 %><br><span class="grad"><%= S.hero_highlight %></span></h1>
+      <p class="lead"><%= S.hero_subtitle %></p>
+      <form class="search" action="/apps"><input name="q" placeholder="<%= S.hero_placeholder %>" aria-label="Search apps"><button class="btn">Search</button></form>
+      <div class="hero-cta"><a class="btn btn-light" href="<%= S.hero_cta_url %>"><%= S.hero_cta_text %></a></div>
+      <% if (S.show_stats === '1') { %><div class="stats">
+        <div><b><%= stats.apps %></b><span>Applications</span></div>
+        <div><b><%= stats.cats %></b><span>Categories</span></div>
+        <div><b><%= stats.articles %></b><span>Articles</span></div>
+      </div><% } %>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="shape s1"></div><div class="shape s2"></div>
+      <div class="float f1 c0">🚀</div><div class="float f2 c3">💰</div><div class="float f3 c4">🎬</div><div class="float f4 c2">🤖</div>
+      <span class="chip fc1">Productivity</span><span class="chip fc2">AI Tools</span><span class="chip fc3">Design</span>
+    </div>
+  </div>
+</section>
+
+<% if (S.show_categories === '1') { %><section class="sec"><div class="wrap">
+  <h2><%= S.cat_title %></h2>
+  <div class="tiles">
+    <% cats.forEach(c => { %><a class="tile <%= c.color %>" href="/apps?cat=<%= c.slug %>"><span class="tile-ico"><%= c.icon %></span><strong><%= c.name %></strong><span class="muted"><%= c.n %> apps</span></a><% }) %>
+  </div>
+</div></section><% } %>
+
+<% if (featured.length && S.show_featured === '1') { %>
+<section class="sec alt"><div class="wrap">
+  <h2><%= S.featured_title %></h2>
+  <div class="spot">
+    <% const f = featured[0]; %>
+    <article class="spot-main">
+      <span class="ico lg"><% if (f.icon_url) { %><img src="<%= f.icon_url %>" alt=""><% } else { %><%= f.name[0] %><% } %></span>
+      <span class="badge on-dark"><%= f.cat || 'App' %></span>
+      <h3><%= f.name %></h3><p><%= f.description %></p>
+      <p class="plats"><%= f.android_url ? '🤖 Android ' : '' %><%= f.ios_url ? ' 🍎 iOS' : '' %></p>
+      <a class="btn btn-light" href="/apps/<%= f.slug %>">Explore <%= f.name %></a>
+    </article>
+    <div class="spot-side"><% featured.slice(1).forEach(a => { %><%- include('partials/card', { a }) %><% }) %></div>
+  </div>
+</div></section>
+<% } %>
+
+<% if (S.show_latest === '1') { %><section class="sec"><div class="wrap">
+  <div class="sec-head"><h2><%= S.latest_title %></h2><a class="link" href="/apps">See all apps</a></div>
+  <div class="grid"><% latest.forEach(a => { %><%- include('partials/card', { a }) %><% }) %></div>
+  <% if (!latest.length) { %><div class="empty"><span>📭</span><h3>No apps yet</h3><p class="muted">Add your first application from the admin panel.</p></div><% } %>
+</div></section><% } %>
+
+<div class="wrap"><%- include('partials/ad', { slot: S.adsense_slot_home }) %></div>
+
+<% if (S.show_articles === '1' && articles.length) { %><section class="sec alt"><div class="wrap">
+  <div class="sec-head"><h2><%= S.mag_title %></h2><a class="link" href="/articles">All articles</a></div>
+  <%- include('partials/articlegrid', { articles }) %>
+</div></section><% } %>
+<%- include('partials/footer') %>

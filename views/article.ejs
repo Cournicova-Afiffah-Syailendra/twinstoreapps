@@ -1,0 +1,18 @@
+<%- include('partials/header', { title: r.title }) %>
+<article class="wrap article">
+  <span class="badge"><%= r.category %></span>
+  <h1><%= r.title %></h1>
+  <p class="byline"><%= r.author %> · <%= String(r.created_at).slice(0, 10) %></p>
+  <% if (r.thumbnail) { %><img class="cover" src="<%= r.thumbnail %>" alt=""><% } %>
+  <% r.content.split(/\n\s*\n/).forEach(p => { %><p class="prose"><%= p %></p><% }) %>
+  <%- include('partials/ad', { slot: S.adsense_slot_article }) %>
+  <% if (a) { %>
+  <div class="reco <%= a.color %>">
+    <span class="ico lg"><% if (a.icon_url) { %><img src="<%= a.icon_url %>" alt=""><% } else { %><%= a.name[0] %><% } %></span>
+    <div><span class="badge">Recommended app</span><h3><%= a.name %></h3><p class="muted"><%= a.description %></p>
+      <p class="plats"><%= a.android_url ? '🤖 Android  ' : '' %><%= a.ios_url ? '🍎 iOS' : '' %></p>
+      <%- include('partials/storebtns', { a }) %></div>
+  </div>
+  <% } %>
+</article>
+<%- include('partials/footer') %>

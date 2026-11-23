@@ -1,0 +1,15 @@
+<%- include('head', { bodyClass: 'admin' }) %>
+<div class="adm">
+<aside class="side">
+  <%- include('logo', { href: '/admin' }) %>
+  <nav>
+    <a href="/admin" class="<%= path === '/admin' ? 'on' : '' %>">📊 Dashboard</a>
+    <a href="/admin/apps" class="<%= path.startsWith('/admin/apps') ? 'on' : '' %>">📱 Applications</a>
+    <a href="/admin/articles" class="<%= path.startsWith('/admin/articles') ? 'on' : '' %>">📰 Articles</a>
+    <a href="/admin/categories" class="<%= path.startsWith('/admin/categories') ? 'on' : '' %>">🏷️ Categories</a>
+    <a href="/admin/settings" class="<%= path.startsWith('/admin/settings') ? 'on' : '' %>">⚙️ Website Settings</a>
+    <a href="/" target="_blank">🌐 View site</a>
+  </nav>
+  <form method="post" action="/admin/logout"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn btn-ghost">Log out</button></form>
+</aside>
+<main class="adm-main">

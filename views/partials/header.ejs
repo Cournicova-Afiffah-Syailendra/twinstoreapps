@@ -1,0 +1,12 @@
+<%- include('head') %>
+<header class="nav"><div class="wrap nav-in">
+  <%- include('logo', { href: '/' }) %>
+  <button class="burger" aria-label="Menu" onclick="document.body.classList.toggle('menu-open')">☰</button>
+  <nav class="nav-links">
+    <a href="/" class="<%= path === '/' ? 'on' : '' %>">Home</a>
+    <a href="/apps" class="<%= path.startsWith('/apps') ? 'on' : '' %>">Applications</a>
+    <a href="/articles" class="<%= path.startsWith('/articles') ? 'on' : '' %>">Articles</a>
+    <a class="btn btn-sm" href="/apps">Explore apps</a>
+  </nav>
+</div></header>
+<main class="page">

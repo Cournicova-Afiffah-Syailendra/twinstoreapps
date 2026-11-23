@@ -1,0 +1,7 @@
+<% const adOn = S.adsense_enabled === '1' && /^ca-pub-\d{10,20}$/.test(S.adsense_client) && /^\d{5,20}$/.test(slot || ''); %>
+<% if (adOn) { %>
+<div class="ad-wrap"><small>Advertisement</small>
+  <ins class="adsbygoogle" style="display:block" data-ad-client="<%= S.adsense_client %>" data-ad-slot="<%= slot %>" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<% } %>

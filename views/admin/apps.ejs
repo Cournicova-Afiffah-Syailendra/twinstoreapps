@@ -1,0 +1,13 @@
+<%- include('../partials/admin-head') %>
+<div class="sec-head"><h1>Applications</h1><a class="btn" href="/admin/apps/new">Add application</a></div>
+<div class="panel"><table>
+  <tr><th>Name</th><th>Category</th><th>Platforms</th><th>Status</th><th></th></tr>
+  <% items.forEach(a => { %><tr>
+    <td><b><%= a.name %></b><% if (a.featured) { %> <span class="badge">Featured</span><% } %></td>
+    <td><%= a.cat || '—' %></td><td><%= a.android_url ? '🤖' : '' %> <%= a.ios_url ? '🍎' : '' %></td>
+    <td><span class="status <%= a.published ? 'ok' : 'draft' %>"><%= a.published ? 'Published' : 'Draft' %></span></td>
+    <td class="acts"><a href="/admin/apps/<%= a.id %>/edit">Edit</a>
+      <form method="post" action="/admin/apps/<%= a.id %>/delete" onsubmit="return confirm('Delete <%= a.name.replace(/'/g, '') %>?')"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="danger">Delete</button></form></td>
+  </tr><% }) %></table>
+  <% if (!items.length) { %><div class="empty"><span>📱</span><h3>No applications yet</h3><a class="btn" href="/admin/apps/new">Add the first one</a></div><% } %></div>
+<%- include('../partials/admin-foot') %>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title><%= typeof title !== 'undefined' && title ? title + ' · ' + S.site_name : S.site_name + ' · Find your next favorite app' %></title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@500;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<meta name="description" content="<%= S.meta_description %>">
+<% if (S.favicon_image) { %><link rel="icon" href="<%= S.favicon_image %>"><% } %>
+<link rel="stylesheet" href="/css/style.css">
+<style>:root{--purple:<%= S.color_primary %>;--blue:<%= S.color_secondary %>;--pink:<%= S.color_accent %>;--a0:<%= S.color_primary %>;--a1:<%= S.color_secondary %>;--a4:<%= S.color_accent %>}</style>
+<% if (S.adsense_enabled === '1' && /^ca-pub-\d{10,20}$/.test(S.adsense_client) && !(typeof bodyClass !== 'undefined' && (bodyClass === 'admin' || bodyClass === 'login'))) { %><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=<%= S.adsense_client %>" crossorigin="anonymous"></script><% } %>
+</head>
+<body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
+<% if (flash) { %><div class="toast" role="status"><%= flash %></div><% } %>

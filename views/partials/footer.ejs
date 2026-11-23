@@ -1,0 +1,6 @@
+</main>
+<footer class="foot"><div class="wrap foot-in">
+  <div><%- include('logo', { href: '/' }) %><p class="muted"><%= S.footer_text %></p></div>
+  <div class="foot-links"><a href="/apps">Applications</a><a href="/articles">Articles</a><% if (S.contact_email) { %><a href="mailto:<%= S.contact_email %>">Contact</a><% } %><% if (S.instagram) { %><a href="<%= S.instagram %>" target="_blank" rel="noopener">Instagram</a><% } %><% if (S.facebook) { %><a href="<%= S.facebook %>" target="_blank" rel="noopener">Facebook</a><% } %><% if (S.whatsapp) { %><a href="<%= S.whatsapp %>" target="_blank" rel="noopener">WhatsApp</a><% } %><a href="/admin/login">Admin</a></div>
+</div></footer>
+<script src="/js/main.js"></script></body></html>

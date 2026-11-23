@@ -1,0 +1,23 @@
+<%- include('../partials/admin-head') %>
+<h1><%= item.id ? 'Edit application' : 'New application' %></h1>
+<form class="panel form" method="post" action="<%= action %>">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <label>Name<input name="name" required value="<%= item.name || '' %>"></label>
+  <label>Short description<input name="description" required value="<%= item.description || '' %>"></label>
+  <label>Full description<textarea name="long_description" rows="4"><%= item.long_description || '' %></textarea></label>
+  <div class="cols">
+    <label>Category<select name="category_id"><option value="">None</option><% cats.forEach(c => { %><option value="<%= c.id %>" <%= item.category_id == c.id ? 'selected' : '' %>><%= c.name %></option><% }) %></select></label>
+    <label>Rating (0–5)<input name="rating" type="number" step="0.1" min="0" max="5" value="<%= item.rating || '' %>"></label>
+  </div>
+  <label>Icon URL<input name="icon_url" placeholder="https://…" value="<%= item.icon_url || '' %>"></label>
+  <div class="cols">
+    <label>Google Play URL<input name="android_url" placeholder="https://play.google.com/…" value="<%= item.android_url || '' %>"></label>
+    <label>App Store URL<input name="ios_url" placeholder="https://apps.apple.com/…" value="<%= item.ios_url || '' %>"></label>
+  </div>
+  <label>Screenshot URLs (one per line)<textarea name="screenshots" rows="3"><%= item.screenshots || '' %></textarea></label>
+  <label>Feature highlights (one per line)<textarea name="features" rows="3"><%= item.features || '' %></textarea></label>
+  <div class="checks"><label><input type="checkbox" name="featured" <%= item.featured ? 'checked' : '' %>> Featured</label>
+    <label><input type="checkbox" name="published" <%= item.published ? 'checked' : '' %>> Published</label></div>
+  <div class="acts"><button class="btn">Save changes</button><a class="btn btn-ghost" href="/admin/apps">Cancel</a></div>
+</form>
+<%- include('../partials/admin-foot') %>

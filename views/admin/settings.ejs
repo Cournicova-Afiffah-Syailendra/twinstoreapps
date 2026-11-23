@@ -1,0 +1,31 @@
+<%- include('../partials/admin-head') %>
+<div class="sec-head"><h1>Website Settings</h1>
+  <form method="post" action="/admin/settings/reset" onsubmit="return confirm('Reset all website settings to the defaults?')"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="btn btn-ghost">Reset to defaults</button></form></div>
+<p class="muted">Edit the landing page and branding here. Changes appear on the public site right after saving.</p>
+<div class="panel"><h3>Logo &amp; favicon</h3>
+  <p class="muted">PNG, JPG, WebP (favicon also ICO), max 2 MB. A square or wide PNG with transparent background works best.</p>
+  <% [['logo_image', 'Logo image'], ['favicon_image', 'Favicon']].forEach(([k, label]) => { %>
+  <div class="up"><b><%= label %></b>
+    <% if (vals[k]) { %><img src="<%= vals[k] %>" alt="<%= label %>"><% } else { %><span class="muted">Not set</span><% } %>
+    <form method="post" enctype="multipart/form-data" action="/admin/settings/image/<%= k %>?_csrf=<%= csrf %>" class="up">
+      <input type="file" name="file" accept="image/png,image/jpeg,image/webp,image/x-icon" required><button class="btn btn-sm">Upload</button></form>
+    <% if (vals[k]) { %><form method="post" action="/admin/settings/image/<%= k %>/remove"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="danger">Remove</button></form><% } %>
+  </div>
+  <% }) %>
+</div>
+<form method="post" action="/admin/settings" class="form">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <% groups.forEach(g => { %>
+  <div class="panel form"><h3><%= g.title %></h3>
+    <% g.fields.forEach(([k, label, t]) => { %>
+      <% if (t === 'image') return; %>
+      <% if (t === 'bool') { %><label class="chk"><input type="checkbox" name="<%= k %>" <%= vals[k] === '1' ? 'checked' : '' %>> <%= label %></label>
+      <% } else if (t === 'textarea') { %><label><%= label %><textarea name="<%= k %>" rows="3" maxlength="400"><%= vals[k] %></textarea></label>
+      <% } else if (t === 'color') { %><label><%= label %><input type="color" name="<%= k %>" value="<%= vals[k] %>"></label>
+      <% } else { %><label><%= label %><input name="<%= k %>" maxlength="160" value="<%= vals[k] %>"></label><% } %>
+    <% }) %>
+  </div>
+  <% }) %>
+  <div class="acts"><button class="btn">Save settings</button><a class="btn btn-ghost" href="/" target="_blank">Preview site</a></div>
+</form>
+<%- include('../partials/admin-foot') %>

@@ -1,0 +1,28 @@
+<%- include('partials/header', { title: a.name }) %>
+<section class="detail-hero"><div class="wrap detail-in">
+  <span class="ico xl"><% if (a.icon_url) { %><img src="<%= a.icon_url %>" alt=""><% } else { %><%= a.name[0] %><% } %></span>
+  <div>
+    <span class="badge on-dark"><%= a.cat || 'App' %></span>
+    <h1><%= a.name %></h1><p class="lead"><%= a.description %></p>
+    <p class="plats"><%= a.android_url ? '🤖 Android  ' : '' %><%= a.ios_url ? '🍎 iOS  ' : '' %><%= a.rating > 0 ? '★ ' + a.rating.toFixed(1) : '' %></p>
+    <%- include('partials/storebtns', { a }) %>
+  </div>
+</div></section>
+<section class="sec"><div class="wrap detail-grid">
+  <div>
+    <h2>About this app</h2><p class="prose"><%= a.long_description || a.description %></p>
+    <% if (a.screenshots) { %><h2>Screenshots</h2><div class="shots"><% a.screenshots.split('\n').forEach(s => { %><img src="<%= s %>" alt="<%= a.name %> screenshot" loading="lazy"><% }) %></div><% } %>
+  </div>
+  <aside>
+    <% if (a.features) { %><div class="panel"><h3>Highlights</h3><ul class="ticks"><% a.features.split('\n').forEach(f => { %><li><%= f %></li><% }) %></ul></div><% } %>
+    <%- include('partials/ad', { slot: S.adsense_slot_detail }) %>
+    <div class="panel"><h3>Information</h3><dl>
+      <dt>Category</dt><dd><%= a.cat || '—' %></dd>
+      <dt>Platforms</dt><dd><%= [a.android_url && 'Android', a.ios_url && 'iOS'].filter(Boolean).join(', ') || '—' %></dd>
+      <dt>Rating</dt><dd><%= a.rating > 0 ? a.rating.toFixed(1) + ' / 5' : 'Not rated yet' %></dd>
+      <dt>Added</dt><dd><%= String(a.created_at).slice(0, 10) %></dd></dl></div>
+  </aside>
+</div></section>
+<% if (related.length) { %><section class="sec alt"><div class="wrap"><h2>Related applications</h2>
+  <div class="grid"><% related.forEach(a => { %><%- include('partials/card', { a }) %><% }) %></div></div></section><% } %>
+<%- include('partials/footer') %>

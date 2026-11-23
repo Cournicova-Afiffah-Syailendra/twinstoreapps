@@ -1,0 +1,28 @@
+<%- include('partials/header', { title: 'Applications' }) %>
+<section class="page-head c0"><div class="wrap"><h1>Application directory</h1>
+  <form class="search" method="get">
+    <input name="q" value="<%= q.q || '' %>" placeholder="Search applications…" aria-label="Search">
+    <input type="hidden" name="cat" value="<%= q.cat || '' %>"><input type="hidden" name="platform" value="<%= q.platform || '' %>"><input type="hidden" name="sort" value="<%= q.sort || '' %>">
+    <button class="btn">Search</button>
+  </form></div></section>
+<section class="sec"><div class="wrap">
+  <div class="filters">
+    <div class="chips">
+      <a class="chip-f <%= !q.cat ? 'on' : '' %>" href="/apps?<%= qs({ cat: '' }) %>">All</a>
+      <% cats.forEach(c => { %><a class="chip-f <%= q.cat === c.slug ? 'on' : '' %>" href="/apps?<%= qs({ cat: c.slug }) %>"><%= c.icon %> <%= c.name %></a><% }) %>
+    </div>
+    <div class="chips">
+      <a class="chip-f <%= !q.platform ? 'on' : '' %>" href="/apps?<%= qs({ platform: '' }) %>">All platforms</a>
+      <a class="chip-f <%= q.platform === 'android' ? 'on' : '' %>" href="/apps?<%= qs({ platform: 'android' }) %>">🤖 Android</a>
+      <a class="chip-f <%= q.platform === 'ios' ? 'on' : '' %>" href="/apps?<%= qs({ platform: 'ios' }) %>">🍎 iOS</a>
+      <span class="sp"></span>
+      <a class="chip-f <%= !q.sort ? 'on' : '' %>" href="/apps?<%= qs({ sort: '' }) %>">Newest</a>
+      <a class="chip-f <%= q.sort === 'rating' ? 'on' : '' %>" href="/apps?<%= qs({ sort: 'rating' }) %>">Top rated</a>
+      <a class="chip-f <%= q.sort === 'name' ? 'on' : '' %>" href="/apps?<%= qs({ sort: 'name' }) %>">A–Z</a>
+    </div>
+  </div>
+  <%- include('partials/ad', { slot: S.adsense_slot_list }) %>
+  <div class="grid"><% apps.forEach(a => { %><%- include('partials/card', { a }) %><% }) %></div>
+  <% if (!apps.length) { %><div class="empty"><span>🔍</span><h3>No apps match your search</h3><p class="muted">Try a different keyword or clear the filters.</p><a class="btn" href="/apps">Clear filters</a></div><% } %>
+</div></section>
+<%- include('partials/footer') %>

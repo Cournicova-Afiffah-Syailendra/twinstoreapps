@@ -1,0 +1,14 @@
+<a class="card <%= a.color || 'c0' %>" href="/apps/<%= a.slug %>">
+  <span class="ico"><% if (a.icon_url) { %><img src="<%= a.icon_url %>" alt=""><% } else { %><%= a.name[0] %><% } %></span>
+  <span class="card-body">
+    <strong><%= a.name %></strong>
+    <span class="muted"><%= a.description %></span>
+    <span class="meta">
+      <% if (a.cat) { %><span class="badge"><%= a.cat %></span><% } %>
+      <% if (a.android_url) { %><span class="plat" title="Android">🤖</span><% } %>
+      <% if (a.ios_url) { %><span class="plat" title="iOS">🍎</span><% } %>
+      <% if (a.rating > 0) { %><span class="rate">★ <%= a.rating.toFixed(1) %></span><% } %>
+    </span>
+  </span>
+  <span class="link">View details</span>
+</a>

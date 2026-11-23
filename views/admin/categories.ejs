@@ -1,0 +1,15 @@
+<%- include('../partials/admin-head') %>
+<h1>Categories</h1>
+<div class="two">
+  <div class="panel"><table>
+    <% items.forEach(c => { %><tr><td><span class="tile-ico <%= c.color %>"><%= c.icon %></span></td><td><b><%= c.name %></b></td><td><%= c.n %> apps</td>
+      <td class="acts"><form method="post" action="/admin/categories/<%= c.id %>/delete" onsubmit="return confirm('Delete this category? Its apps will become uncategorized.')"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="danger">Delete</button></form></td></tr><% }) %>
+  </table></div>
+  <form class="panel form" method="post" action="/admin/categories"><h3>Add category</h3>
+    <input type="hidden" name="_csrf" value="<%= csrf %>">
+    <label>Name<input name="name" required></label>
+    <label>Icon (emoji)<input name="icon" maxlength="4" placeholder="✨"></label>
+    <label>Color<select name="color"><option value="c0">Lavender</option><option value="c1">Blue</option><option value="c2">Peach</option><option value="c3">Mint</option><option value="c4">Pink</option><option value="c5">Yellow</option></select></label>
+    <button class="btn">Add category</button></form>
+</div>
+<%- include('../partials/admin-foot') %>

@@ -1,0 +1,18 @@
+<%- include('../partials/admin-head') %>
+<h1>Dashboard</h1>
+<div class="stat-grid">
+  <div class="stat c0"><span>Total Applications</span><b><%= s.apps %></b></div>
+  <div class="stat c1"><span>Total Articles</span><b><%= s.articles %></b></div>
+  <div class="stat c2"><span>Total Categories</span><b><%= s.cats %></b></div>
+  <div class="stat c3"><span>Published Content</span><b><%= s.pub %></b></div>
+</div>
+<div class="two">
+  <div class="panel"><h3>Apps per category</h3>
+    <% const max = Math.max(1, ...bars.map(b => b.n)); bars.forEach((b, i) => { %>
+    <div class="bar"><span><%= b.name %></span><i style="width:<%= Math.round(b.n / max * 100) %>%;background:var(--a<%= i % 5 %>)"></i><b><%= b.n %></b></div><% }) %>
+  </div>
+  <div class="panel"><h3>Recently added</h3>
+    <table><% recent.forEach(a => { %><tr><td><a href="/admin/apps/<%= a.id %>/edit"><%= a.name %></a></td><td><span class="badge"><%= a.cat || '—' %></span></td><td><span class="status <%= a.published ? 'ok' : 'draft' %>"><%= a.published ? 'Published' : 'Draft' %></span></td></tr><% }) %></table>
+  </div>
+</div>
+<%- include('../partials/admin-foot') %>

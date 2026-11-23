@@ -1,0 +1,12 @@
+<%- include('../partials/admin-head') %>
+<div class="sec-head"><h1>Articles</h1><a class="btn" href="/admin/articles/new">Write article</a></div>
+<div class="panel"><table>
+  <tr><th>Title</th><th>Category</th><th>Author</th><th>Status</th><th></th></tr>
+  <% items.forEach(r => { %><tr>
+    <td><b><%= r.title %></b></td><td><span class="badge"><%= r.category %></span></td><td><%= r.author %></td>
+    <td><span class="status <%= r.published ? 'ok' : 'draft' %>"><%= r.published ? 'Published' : 'Draft' %></span></td>
+    <td class="acts"><a href="/admin/articles/<%= r.id %>/edit">Edit</a>
+      <form method="post" action="/admin/articles/<%= r.id %>/delete" onsubmit="return confirm('Delete this article?')"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="danger">Delete</button></form></td>
+  </tr><% }) %></table>
+  <% if (!items.length) { %><div class="empty"><span>✍️</span><h3>No articles yet</h3><a class="btn" href="/admin/articles/new">Write the first one</a></div><% } %></div>
+<%- include('../partials/admin-foot') %>

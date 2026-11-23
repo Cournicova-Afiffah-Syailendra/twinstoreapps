@@ -1,0 +1,11 @@
+<%- include('../partials/head', { title: 'Admin login', bodyClass: 'login' }) %>
+<form class="login-box" method="post" action="/admin/login">
+  <%- include('../partials/logo', { href: '/' }) %>
+  <h1>Welcome back</h1><p class="muted">Log in to manage apps and articles.</p>
+  <% if (error) { %><p class="err"><%= error %></p><% } %>
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <label>Username<input name="username" required autofocus autocomplete="username"></label>
+  <label>Password<input name="password" type="password" required autocomplete="current-password"></label>
+  <button class="btn">Log in</button>
+</form>
+<script src="/js/main.js"></script></body></html>

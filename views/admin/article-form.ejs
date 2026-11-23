@@ -1,0 +1,17 @@
+<%- include('../partials/admin-head') %>
+<h1><%= item.id ? 'Edit article' : 'New article' %></h1>
+<form class="panel form" method="post" action="<%= action %>">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <label>Title<input name="title" required value="<%= item.title || '' %>"></label>
+  <label>Excerpt<input name="excerpt" value="<%= item.excerpt || '' %>"></label>
+  <label>Content (separate paragraphs with a blank line)<textarea name="content" rows="10" required><%= item.content || '' %></textarea></label>
+  <div class="cols">
+    <label>Category label<input name="category" value="<%= item.category || 'Tech' %>"></label>
+    <label>Author<input name="author" value="<%= item.author || 'AppSpace Team' %>"></label>
+  </div>
+  <label>Thumbnail URL<input name="thumbnail" placeholder="https://…" value="<%= item.thumbnail || '' %>"></label>
+  <label>Recommended app<select name="app_id"><option value="">None</option><% apps.forEach(a => { %><option value="<%= a.id %>" <%= item.app_id == a.id ? 'selected' : '' %>><%= a.name %></option><% }) %></select></label>
+  <div class="checks"><label><input type="checkbox" name="published" <%= item.published ? 'checked' : '' %>> Published</label></div>
+  <div class="acts"><button class="btn">Save changes</button><a class="btn btn-ghost" href="/admin/articles">Cancel</a></div>
+</form>
+<%- include('../partials/admin-foot') %>

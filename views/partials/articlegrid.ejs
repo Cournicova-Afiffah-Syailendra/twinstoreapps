@@ -1,0 +1,13 @@
+<div class="mag">
+<% articles.forEach((r, i) => { %>
+  <a class="post <%= i === 0 ? 'post-lead' : '' %> c<%= (r.id + 1) % 6 %>" href="/articles/<%= r.slug %>">
+    <span class="thumb"><% if (r.thumbnail) { %><img src="<%= r.thumbnail %>" alt=""><% } else { %><em><%= r.category[0] %></em><% } %></span>
+    <span class="badge"><%= r.category %></span>
+    <strong><%= r.title %></strong>
+    <span class="muted"><%= r.excerpt %></span>
+    <span class="byline"><%= r.author %> · <%= String(r.created_at).slice(0, 10) %></span>
+    <span class="link">Read Article</span>
+  </a>
+<% }) %>
+</div>
+<% if (!articles.length) { %><div class="empty"><span>✍️</span><h3>No articles yet</h3><p class="muted">Published articles will show up here.</p></div><% } %>
